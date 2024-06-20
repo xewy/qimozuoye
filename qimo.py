@@ -1,5 +1,6 @@
 import jieba
 import requests
+import stopwords
 import streamlit as st
 from streamlit_echarts import st_echarts
 from collections import Counter
@@ -11,7 +12,6 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
-
 
 # 定义数据清洗函数
 def clean_text(text):
@@ -33,7 +33,6 @@ def segment_chinese(text):
 
 
 def segment_english(text):
-    from nltk.corpus import stopwords
     stopwords = set(stopwords.words('english'))
     words = re.findall(r'\b\w+\b', text.lower())
     words = [word for word in words if word not in stopwords and word not in string.punctuation]
@@ -62,7 +61,7 @@ def extract_body_text(html):
 
 # 生成词云图
 def generate_wordcloud(words):
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(' '.join(words))
+    wordcloud = WordCloud(font_path ="C:/Windows/Fonts/msyh.ttc",width=800, height=400, background_color='white').generate(' '.join(words))
     return wordcloud
 
 
